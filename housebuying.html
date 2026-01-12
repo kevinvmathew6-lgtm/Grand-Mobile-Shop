@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Houses - Kevin's Grand Mobile Shop</title>
+
+  <!-- Correct Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tagesschrift&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      text-align: center;
+    }
+
+    textarea {
+      width: 60%;
+      height: 5vh;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      resize: none;
+      color: #000;
+    }
+
+    textarea::placeholder {
+      color: #555;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 style="
+    color: white;
+    font-family: 'Bebas Neue', serif;
+    margin-top: 20px;">
+    Houses
+  </h1>
+
+  <p style="
+    color: white;
+    font-family: 'Tagesschrift', serif;
+    letter-spacing: 1px;
+    padding: 0 15px;">
+    Here, you can order to buy a house.  
+    Fill this form to buy a house of your desire.
+  </p>
+
+  <textarea id="gameName" placeholder="Game Name"></textarea><br>
+  <textarea id="discordId" placeholder="House Number"></textarea><br>
+  <textarea id="houseplace" placeholder="House Place"></textarea><br>
+  <textarea id="server" placeholder="Which Server"></textarea><br>
+  <textarea id="budget" placeholder="Budget"></textarea><br>
+  <textarea id="extraInfo" placeholder="Tell Us Something About Your Item"></textarea><br>
+
+  <button onclick="sendOrder()">Submit Order</button>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1381655724010246144/g5yZADripyaRvIM4eWr9u0aqUerR_9QZUhiQYFQ_z-0xmzrnOi9a8hjLpoBCq9QnbOst";
+
+    function sendOrder() {
+      const gameName = document.getElementById("gameName").value.trim();
+      const discordId = document.getElementById("discordId").value.trim();
+      const houseplace = document.getElementById("houseplace").value.trim();
+      const server = document.getElementById("server").value.trim();
+      const budget = document.getElementById("budget").value.trim();
+      const extraInfo = document.getElementById("extraInfo").value.trim();
+
+      if (!gameName || !discordId) {
+        alert("Please fill at least Game Name and Discord ID.");
+        return;
+      }
+
+      const message = {
+        content:
+          "**🏠 New House Order**\n\n" +
+          "**Game Name:** " + gameName + "\n" +
+          "**House Number:** " + discordId + "\n" +
+          "**House Place:** " + houseplace + "\n" +
+          "**Server:** " + server + "\n" +
+          "**Budget:** " + budget + "\n" +
+          "**Extra Details:**\n" + extraInfo
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(message)
+      })
+      .then(() => {
+        alert("✅ Order sent successfully!");
+
+        document.querySelectorAll("textarea").forEach(t => t.value = "");
+      })
+      .catch(() => {
+        alert("❌ Failed to send order. Try again.");
+      });
+    }
+  </script>
+
+</body>
+</html>

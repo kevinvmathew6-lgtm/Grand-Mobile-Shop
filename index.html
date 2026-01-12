@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kevin's Grand Mobile Shop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <style>
+  body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+  height: 100vh;
+}
+
+/* ===== Title & Intro ===== */
+.site-title {
+  margin-top: 30px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.site-intro {
+  margin-top: 8px;
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+/* ===== Category Buttons ===== */
+.category-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  max-width: 720px;
+  margin: auto;
+}
+
+.category-btn {
+  display: block;
+  padding: 16px;
+  text-decoration: none;
+  color: white;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 15px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.category-btn:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Special highlight */
+.category-btn.jobs {
+  background: rgba(0, 255, 153, 0.25);
+}
+  </style>
+
+  <h1 class="site-title">Kevin's Grand Mobile Shop</h1>
+  <p class="site-intro">Choose a category</p>
+
+  <div class="category-container">
+    <a href="buying.html" class="category-btn">Buy Item</a>
+    <a href="selling.html" class="category-btn">Sell Item</a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars - Kevin's Grand Mobile Shop</title>
+
+  <!-- Google Fonts (correct way) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tagesschrift&display=swap" rel="stylesheet">
+</head>
+
+<style>
+textarea {
+  width: 60%;
+  height: 5vh;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  resize: none;
+  color: #000;
+}
+
+textarea::placeholder {
+  color: #555;
+}
+
+input[type="file"] {
+  width: 60%;
+  margin-top: 10px;
+  color: white;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+</style>
+
+<body style="
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  text-align: center;
+">
+
+  <h1 style="
+    color: white;
+    font-family: 'Bebas Neue', serif;">
+    Cars
+  </h1>
+
+  <p style="
+    color: white;
+    font-family: 'Tagesschrift', serif;
+    letter-spacing: 1px;">
+    Here, you can put Cars for sale.  
+    Fill this form to sell your Car.
+  </p>
+
+  <textarea id="gameName" placeholder="Game Name"></textarea><br>
+  <textarea id="discordId" placeholder="Car Name"></textarea><br>
+  <textarea id="server" placeholder="Which Server"></textarea><br>
+  <textarea id="price" placeholder="Price"></textarea><br>
+  <textarea id="stateprice" placeholder="State Price"></textarea><br>
+  <textarea id="extraInfo" placeholder="Tell Us Something About Your Car"></textarea><br>
+  <p
+    style="
+    color: white;">For Photo</p>
+
+  <!-- IMAGE UPLOAD -->
+  <input type="file" id="itemPhoto" accept="image/*"><br>
+
+  <button onclick="sendOrder()">Submit Order</button>
+
+  <script>
+const webhookURL = "https://discord.com/api/webhooks/1381655724010246144/g5yZADripyaRvIM4eWr9u0aqUerR_9QZUhiQYFQ_z-0xmzrnOi9a8hjLpoBCq9QnbOst";
+
+function sendOrder() {
+  const gameName = document.getElementById("gameName").value.trim();
+  const discordId = document.getElementById("discordId").value.trim();
+  const server = document.getElementById("server").value.trim();
+  const budget = document.getElementById("price").value.trim();
+  const extraInfo = document.getElementById("extraInfo").value.trim();
+  const stateprice = document.getElementById("stateprice").value.tirm();
+  const photo = document.getElementById("itemPhoto").files[0];
+
+  if (!gameName || !discordId) {
+    alert("Please fill at least Game Name and Discord ID.");
+    return;
+  }
+
+  const formData = new FormData();
+
+  const message =
+    "**🏠 New Car Sale**\n\n" +
+    "**Game Name:** " + gameName + "\n" +
+    "**Car Name:** " + discordId + "\n" +
+    "**Server:** " + server + "\n" +
+    "**Price:** " + price + "\n" +
+    "**State Price:** " + stateprice + "\n" +
+    "**Extra Details:**\n" + extraInfo;
+
+  formData.append("content", message);
+
+  if (photo) {
+    formData.append("file", photo);
+  }
+
+  fetch(webhookURL, {
+    method: "POST",
+    body: formData
+  })
+  .then(() => {
+    alert("✅ Item has been uploaded for sale successfully!");
+
+    document.querySelectorAll("textarea").forEach(t => t.value = "");
+    document.getElementById("itemPhoto").value = "";
+  })
+  .catch(() => {
+    alert("❌ Failed to send order. Try again.");
+  });
+}
+  </script>
+
+</body>
+</html>
